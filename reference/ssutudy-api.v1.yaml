@@ -157,6 +157,8 @@ paths:
             schema:
               $ref: '#/components/schemas/NewStudyRequest'
         description: ''
+      tags:
+        - 스터디
   '/v1/users/{users}/change-password':
     parameters:
       - schema:
@@ -217,7 +219,8 @@ paths:
         description: 스터디 id
     get:
       summary: 스터디 조회
-      tags: []
+      tags:
+        - 스터디
       responses:
         '200':
           description: 스터디를 성공적으로 조회한 경우
@@ -297,6 +300,8 @@ paths:
       description: ''
       security:
         - Authorization: []
+      tags:
+        - 스터디
     get:
       summary: 참가하고 있는 스터디인지 확인
       operationId: get-v1-studies-studyId-participate
@@ -307,6 +312,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CheckParticipateStatusResponse'
+      tags:
+        - 스터디
   /v1/study-logs:
     post:
       summary: ''
@@ -314,8 +321,12 @@ paths:
       responses:
         '200':
           description: OK
+      tags:
+        - 스터디
     get:
       summary: 공부 시간
+      tags:
+        - 스터디
 components:
   schemas:
     SignInRequest:
