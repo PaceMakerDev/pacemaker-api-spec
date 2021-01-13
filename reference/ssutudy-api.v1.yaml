@@ -217,7 +217,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetStudiesResponse'
+                $ref: '#/components/schemas/GetStudyResponse'
         '401':
           description: |-
             Authorizion 헤더 형식이 잘못된 경우 (아래와 같은 형식이어야 합니다)
@@ -1035,6 +1035,8 @@ components:
         description:
           type: string
           description: 스테디 설명
+        owner:
+          $ref: '#/components/schemas/UserDetail'
       required:
         - title
         - participantNumber
@@ -1043,6 +1045,7 @@ components:
         - id
         - paricipantLimit
         - description
+        - owner
     GetStudyResponse:
       title: GetStudyResponse
       type: object
