@@ -34,7 +34,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       operationId: get-v1-auth-sign-in
-      description: ''
+      description: test
       requestBody:
         content:
           application/json:
