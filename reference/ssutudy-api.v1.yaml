@@ -855,20 +855,46 @@ paths:
               $ref: '#/components/schemas/NewCommentRequest'
       tags:
         - 커뮤니티
+  /v1/users/reset-password:
+    post:
+      summary: 비밀번호 복구
+      operationId: post-v1-users-reset-password
+      responses:
+        '204':
+          description: 이메일로 임시 비밀번호를 전송한 경우
+        '400':
+          description: 잘못된 요청을 보낸 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 사용자가 없는 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+      tags:
+        - 인증
 components:
   schemas:
     SignInRequest:
       title: SignInRequest
       type: object
       properties:
-        id:
+        email:
           type: string
-          description: 사용자 아이디
+          description: 사용자 이메일
         password:
           type: string
           description: 사용자 비밀번호
       required:
-        - id
+        - email
         - password
     TokenResponse:
       title: TokenResponse
@@ -1004,10 +1030,14 @@ components:
         major:
           type: string
           description: 사용자 전공
+        email:
+          type: string
+          description: 사용자 이메일
       required:
         - id
         - name
         - major
+        - email
     StudyDetail:
       title: StudyDetail
       type: object
@@ -1345,6 +1375,19 @@ components:
       required:
         - content
         - postId
+    ResetPasswordRequest:
+      title: ResetPasswordRequest
+      type: object
+      properties:
+        email:
+          type: string
+          description: 이메일
+        id:
+          type: string
+          description: 사용자 아이디
+      required:
+        - email
+        - id
   securitySchemes:
     Authorization:
       type: http
