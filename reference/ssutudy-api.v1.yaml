@@ -102,7 +102,7 @@ paths:
       operationId: get-v1-studies
       description: |-
         내 스터디를 조회하고 싶다면
-        /v1/studies?userId={내 아이디}
+        /v1/studies?participantId={내 아이디}
 
         모든 스터디를 검색하고 싶다면
         /v1/studies
@@ -113,7 +113,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: userId
+          name: participantId
           description: 사용자 아이디
         - schema:
             type: string
@@ -881,6 +881,115 @@ paths:
               $ref: '#/components/schemas/ResetPasswordRequest'
       tags:
         - 인증
+  /v1/admin/participate-requests:
+    get:
+      summary: 스터디 요청 목록
+      responses:
+        '200':
+          description: 조회 성공한 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requests:
+                    type: array
+                    description: 요청 목록
+                    items:
+                      $ref: '#/components/schemas/ParticipateRequestItem'
+                required:
+                  - requests
+        '400':
+          description: 잘못된 요청을 보낸 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: |-
+            Authorizion 헤더 형식이 잘못된 경우 (아래와 같은 형식이어야 합니다)
+            `Bearer {accesstoken}`
+
+            또는 Authorizion 헤더에 access token을 전달하지 않은 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 내가 만든 스터디가 아닌 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 스터디가 없는 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      operationId: get-v1-admin-studies
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: studyId
+          required: true
+          description: 스터디 id
+      description: ''
+      security:
+        - Authorization: []
+      tags:
+        - 스터디
+    parameters: []
+  '/v1/admin/participate-requests/{requestId}':
+    parameters:
+      - schema:
+          type: string
+        name: requestId
+        in: path
+        required: true
+    put:
+      summary: 스터디 참여 요청 상태 변경
+      operationId: put-v1-admin-participate-requests-requestId
+      responses:
+        '200':
+          description: 상태 변경에 성공한 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipateRequestItem'
+        '400':
+          description: 잘못된 요청을 보낸 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: |-
+            Authorizion 헤더 형식이 잘못된 경우 (아래와 같은 형식이어야 합니다)
+            `Bearer {accesstoken}`
+
+            또는 Authorizion 헤더에 access token을 전달하지 않은 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 해당 요청의 스터디 주인이 아닌 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 참여 요청이 없는 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - 스터디
+      security:
+        - Authorization: []
 components:
   schemas:
     SignInRequest:
@@ -1087,12 +1196,22 @@ components:
     CheckParticipateStatusResponse:
       title: CheckParticipateStatusResponse
       type: object
+      description: |-
+        NONE: 아무것도 안한 상태
+        PENDING: 요청 보낸 상태
+        ACCEPTED: 승인 완료
+        REJECTED: 승인 거부
       properties:
-        isParticipating:
-          type: boolean
+        status:
+          type: string
           description: 스터디 참여하고 있는 지 여부
+          enum:
+            - PENDING
+            - ACCEPTED
+            - NONE
+            - REJECTED
       required:
-        - isParticipating
+        - status
     NewStudyRequest:
       title: NewStudyRequest
       type: object
@@ -1388,6 +1507,42 @@ components:
       required:
         - email
         - id
+    ParticipateRequestItem:
+      title: ParticipateRequestItem
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserDetail'
+        createdAt:
+          type: string
+          description: 요청 보낸 시간
+          format: date-time
+        id:
+          type: integer
+          description: 창여 요청 id
+      required:
+        - user
+        - createdAt
+        - id
+    ChangeParticipateRequestStatusRequest:
+      title: ChangeParticipateRequestStatusRequest
+      type: object
+      description: |-
+        NONE: 아무것도 안한 상태
+        PENDING: 요청 보낸 상태
+        ACCEPTED: 승인 완료
+        REJECTED: 승인 거부
+      properties:
+        status:
+          type: string
+          description: ''
+          enum:
+            - NONE
+            - PENDING
+            - ACCEPTED
+            - REJECTED
+      required:
+        - status
   securitySchemes:
     Authorization:
       type: http
