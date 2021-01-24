@@ -1058,11 +1058,16 @@ components:
         password:
           type: string
           description: 사용자 비밀번호
+        email:
+          type: string
+          description: 이메일
+          format: email
       required:
         - id
         - major
         - name
         - password
+        - email
     StudySummary:
       title: StudySummary
       type: object
