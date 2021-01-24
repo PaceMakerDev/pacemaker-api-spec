@@ -27,7 +27,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        '403':
+        '404':
           description: 비밀번호나 아이디 값이 틀려서 로그인 실패한 경우
           content:
             application/json:
