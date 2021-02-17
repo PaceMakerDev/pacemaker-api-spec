@@ -6,7 +6,7 @@ info:
     email: skfk0135@gmail.com
   description: ssutudy API 스펙 문서
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000?test'
 paths:
   /v1/auth/sign-in:
     post:
