@@ -1288,8 +1288,8 @@ components:
       type: object
       properties:
         id:
-          type: string
           description: '사용자 아이디  '
+          type: integer
         major:
           type: string
           description: 사용자 전공
