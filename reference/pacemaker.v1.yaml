@@ -166,6 +166,17 @@ paths:
             - ENTRANCE_EXAM
             - EMPLOYMENT
             - OTHER
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: 페이지 번호
+        - schema:
+            type: integer
+            default: '6'
+          in: query
+          name: size
+          description: 불러올 스터디 개수
       security:
         - Authorization: []
       description: ' 스터디룸 찾기 페이지에서 사용'
@@ -212,7 +223,10 @@ paths:
         - 스터디
       responses:
         '200':
-          description: 조회 성공한 경우
+          description: |-
+            조회 성공한 경우
+
+            최근 스터디 6개를 조회합니다
           content:
             application/json:
               schema:
@@ -292,6 +306,49 @@ paths:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          스터디룸 찾기 페이지에서
          
          `이 스터디룸은 어때요?` 목록
@@ -318,7 +375,9 @@ paths:
                     type: boolean
                     description: api 호출 성공 여부
                   data:
-                    type: string
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QuestionOverview'
         '401':
           description: 액세스 토큰이 없거나 만료된 경우
           content:
@@ -335,6 +394,93 @@ paths:
       description: 스터디룸 질문 게시판 페이지에서 사용
       security:
         - Authorization: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: searchByTitleOrContent
+          description: 제목 또는 내용으로 검색
+    post:
+      summary: 질문 작성
+      operationId: post-v1-studies-studyId-questions
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/QuestionOverview'
+        '400':
+          description: request body가 잘못된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '401':
+          description: 액세스 토큰이 없거나 만료된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      description: 질문 작성 api
+      tags:
+        - 질문
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionRequest'
+  /v1/auth/token/refresh:
+    post:
+      summary: 토큰 재발급
+      operationId: post-v1-auth-token-refresh
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: ''
+      tags:
+        - 인증
+      description: 토큰 재발급
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateTokenRequest'
 components:
   schemas:
     SignInRequest:
@@ -541,6 +687,28 @@ components:
         - title
         - description
         - tag
+    CreateQuestionRequest:
+      title: CreateQuestionRequest
+      type: object
+      properties:
+        title:
+          type: string
+          description: 제목
+        content:
+          type: string
+          description: 내용
+      required:
+        - title
+        - content
+    RegenerateTokenRequest:
+      title: RegenerateTokenRequest
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          description: 리프레시 토큰
+      required:
+        - refreshToken
   responses: {}
   securitySchemes:
     Authorization:
