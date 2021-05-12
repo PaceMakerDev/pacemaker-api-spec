@@ -421,6 +421,9 @@ paths:
 
 
 
+
+
+
          스터디룸 찾기 페이지에서
          
          `이 스터디룸은 어때요?` 목록
@@ -541,6 +544,18 @@ paths:
                     $ref: '#/components/schemas/AccessToken'
         '400':
           description: request body 잘못됨
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '401':
+          description: 리프레시 토큰 만료된 경우
           content:
             application/json:
               schema:
