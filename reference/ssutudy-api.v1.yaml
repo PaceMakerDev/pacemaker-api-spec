@@ -1287,28 +1287,45 @@ components:
       title: SignUpRequest
       type: object
       properties:
-        id:
-          description: '사용자 아이디  '
-          type: integer
-        major:
-          type: string
-          description: 사용자 전공
-        name:
-          type: string
-          description: 사용자 이름
-        password:
-          type: string
-          description: 사용자 비밀번호
         email:
           type: string
           description: 이메일
           format: email
+        name:
+          type: string
+          description: 사용자 이름
+        major:
+          type: string
+          description: 사용자 전공
+        studentId:
+          type: string
+          description: 학번
+        password:
+          type: string
+          description: 사용자 비밀번호
+        birthday:
+          type: string
+          description: 사용자 생년월일
+          format: date
+        academicStatus:
+          type: string
+          enum:
+            - TAKE_OFF
+            - ATTENDING
+          description: |-
+            재학 상태
+
+            TAKE_OFF: 휴학
+
+            ATTENDING: 재학
       required:
-        - id
-        - major
-        - name
-        - password
         - email
+        - name
+        - major
+        - studentId
+        - password
+        - birthday
+        - academicStatus
     StudySummary:
       title: StudySummary
       type: object
