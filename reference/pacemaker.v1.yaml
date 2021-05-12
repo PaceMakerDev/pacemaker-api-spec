@@ -2,8 +2,19 @@ openapi: 3.0.0
 info:
   title: pacemaker.v1
   version: '1.0'
+  contact:
+    name: puroong
+    email: skfk0135@gmail.com
+  license:
+    name: MIT
+  description: 페이스메이커 API v1
 servers:
   - url: 'http://localhost:3000'
+tags:
+  - name: 스터디
+  - name: 인증
+  - name: 공부 기록
+  - name: 질문
 paths:
   /v1/auth/signup:
     post:
@@ -52,7 +63,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ./ssutudy-api.v1.yaml#/components/schemas/SignUpRequest
+              $ref: '#/components/schemas/SignUpRequest'
         description: ''
       description: 로그인 할 때 사용
   /v1/auth/signin:
@@ -104,7 +115,7 @@ paths:
         description: 회원가입 할 때 사용
       tags:
         - 인증
-      description: ''
+      description: 로그인 할 때 사용합니다
   /v1/studies:
     get:
       summary: 스터디 목록 조회
@@ -141,6 +152,14 @@ paths:
       parameters:
         - schema:
             type: string
+            enum:
+            - LANGUAGE
+            - IT
+            - NATIONAL_EXAM
+            - CERTIFICATE
+            - ENTRANCE_EXAM
+            - EMPLOYMENT
+            - OTHER
           in: query
           name: tag
           description: |-
@@ -159,23 +178,15 @@ paths:
             EMPLOYMENT 취업
 
             OTHER 기타
-          enum:
-            - LANGUAGE
-            - IT
-            - NATIONAL_EXAM
-            - CERTIFICATE
-            - ENTRANCE_EXAM
-            - EMPLOYMENT
-            - OTHER
         - schema:
             type: integer
-            default: '0'
+            default: 0
           in: query
           name: page
           description: 페이지 번호
         - schema:
             type: integer
-            default: '6'
+            default: 6
           in: query
           name: size
           description: 불러올 스터디 개수
@@ -210,7 +221,7 @@ paths:
                     description: api 호출 성공 여부
                   data:
                     type: string
-      description: ''
+      description: 스터디 검색에서 스터디 목록 조회할 때 사용합니다
       security:
         - Authorization: []
       requestBody:
@@ -296,144 +307,20 @@ paths:
                   data:
                     type: string
       operationId: get-v1-recommend-studies
-      parameters:
-        - schema:
-            type: string
-          in: query
       security:
         - Authorization: []
-      description: |2-
+      description: |-
+        스터디룸 찾기 페이지에서
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         스터디룸 찾기 페이지에서
-         
-         `이 스터디룸은 어때요?` 목록
+        `이 스터디룸은 어때요?` 목록
   '/v1/studies/{studyId}/questions':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: studyId
         in: path
         required: true
+        description: 스터디 id
     get:
       summary: 질문 목록 조회
       tags:
@@ -1151,5 +1038,3 @@ components:
       type: http
       scheme: bearer
       description: '`Bearer ${accessToken}` 형식으로 설정해주세요'
-tags:
-  - name: 인증
