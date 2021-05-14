@@ -153,13 +153,13 @@ paths:
         - schema:
             type: string
             enum:
-            - LANGUAGE
-            - IT
-            - NATIONAL_EXAM
-            - CERTIFICATE
-            - ENTRANCE_EXAM
-            - EMPLOYMENT
-            - OTHER
+              - LANGUAGE
+              - IT
+              - NATIONAL_EXAM
+              - CERTIFICATE
+              - ENTRANCE_EXAM
+              - EMPLOYMENT
+              - OTHER
           in: query
           name: tag
           description: |-
@@ -730,6 +730,117 @@ paths:
       description: 메인 페이지에서 monthly 오늘의 공부 기록 조회할 때 사용합니다
       security:
         - Authorization: []
+  /v1/auth/email/find:
+    post:
+      summary: 이메일 찾기
+      operationId: post-v1-auth-email-find
+      responses:
+        '200':
+          description: 이메일 찾기 성공한 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/UserEmail'
+        '400':
+          description: request body 잘못된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 해당 정보를 가진 사용자가 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      tags:
+        - 인증
+      description: 아이디 찾기 페이지에서 사용합니다
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindEmailRequest'
+  /v1/auth/password/find:
+    post:
+      summary: 비밀번호 찾기
+      operationId: post-v1-auth-password-find
+      responses:
+        '200':
+          description: 이메일 전송 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/UserEmailAndName'
+        '400':
+          description: request body 잘못된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 해당 정보를 가진 사용자가 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '500':
+          description: 서버 오류로 이메일 못보낸 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      tags:
+        - 인증
+      description: 비밀번호 찾기 페이지에서 사용합니다
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindPasswordRequest'
 components:
   schemas:
     SignInRequest:
@@ -1032,6 +1143,58 @@ components:
       required:
         - xAxis
         - yAxis
+    FindEmailRequest:
+      title: FindEmailRequest
+      type: object
+      properties:
+        name:
+          type: string
+          description: 이름
+        studentId:
+          type: string
+          description: 학번
+      required:
+        - name
+        - studentId
+    UserEmail:
+      title: UserEmail
+      type: object
+      properties:
+        email:
+          type: string
+          description: 이메일
+          format: email
+      required:
+        - email
+      x-examples: {}
+    FindPasswordRequest:
+      title: FindPasswordRequest
+      type: object
+      properties:
+        name:
+          type: string
+          description: 이름
+        email:
+          type: string
+          description: 이메일
+          format: email
+      required:
+        - name
+        - email
+    UserEmailAndName:
+      title: UserEmailAndName
+      type: object
+      properties:
+        name:
+          type: string
+          description: 이름
+        email:
+          type: string
+          format: email
+          description: 이메일
+      required:
+        - name
+        - email
   responses: {}
   securitySchemes:
     Authorization:
