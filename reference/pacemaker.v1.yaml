@@ -880,7 +880,19 @@ paths:
                   data:
                     type: string
         '403':
-          description: 다른 사용자의 비밀번호를 바꾸려 하거나 입력한 기존 비밀번호가 틀린
+          description: 다른 사용자의 비밀번호를 바꾸려 하거나 입력한 기존 비밀번호가 틀린 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 없는 사용자 id인 경우
           content:
             application/json:
               schema:
