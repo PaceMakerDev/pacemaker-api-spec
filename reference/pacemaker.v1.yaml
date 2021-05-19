@@ -841,6 +841,63 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/FindPasswordRequest'
+  '/v1/user/{userId}/password':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    patch:
+      summary: 비밀번호 변경
+      operationId: patch-v1-user-userId-password
+      responses:
+        '204':
+          description: 비밀번호 변경 성공한 경우
+        '400':
+          description: request body가 잘못된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '401':
+          description: 액세스 토큰이 없거나 만료된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '403':
+          description: 다른 사용자의 비밀번호를 바꾸려 하거나 입력한 기존 비밀번호가 틀린
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      description: 비밀번호 변경
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
 components:
   schemas:
     SignInRequest:
@@ -1199,6 +1256,19 @@ components:
       required:
         - name
         - email
+    UpdatePasswordRequest:
+      title: UpdatePasswordRequest
+      type: object
+      properties:
+        originalPassword:
+          type: string
+          description: 기존 비밀번호
+        newPassword:
+          type: string
+          description: 새 비밀번호
+      required:
+        - originalPassword
+        - newPassword
   responses: {}
   securitySchemes:
     Authorization:
