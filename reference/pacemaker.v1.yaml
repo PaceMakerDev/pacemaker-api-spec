@@ -905,10 +905,14 @@ components:
           description: 리프레시 토큰
         user:
           $ref: '#/components/schemas/UserNameAndId'
+        shouldChangePassword:
+          type: boolean
+          description: 비밀번호 변경해야 하는지 여부
       required:
         - accessToken
         - refreshToken
         - user
+        - shouldChangePassword
     UserNameAndId:
       title: UserNameAndId
       type: object
