@@ -15,6 +15,7 @@ tags:
   - name: 인증
   - name: 공부 기록
   - name: 질문
+  - name: 사용자
 paths:
   /v1/auth/signup:
     post:
@@ -898,6 +899,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdatePasswordRequest'
+      tags:
+        - 사용자
 components:
   schemas:
     SignInRequest:
