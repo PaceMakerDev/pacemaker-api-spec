@@ -1275,14 +1275,10 @@ components:
       title: UpdatePasswordRequest
       type: object
       properties:
-        originalPassword:
-          type: string
-          description: 기존 비밀번호
         newPassword:
           type: string
           description: 새 비밀번호
       required:
-        - originalPassword
         - newPassword
   responses: {}
   securitySchemes:
