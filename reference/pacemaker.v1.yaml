@@ -922,7 +922,8 @@ paths:
         required: true
     get:
       summary: 사용자 정보 조회
-      tags: []
+      tags:
+        - 사용자
       responses:
         '200':
           description: 조회 성공한 경우
