@@ -913,6 +913,69 @@ paths:
               $ref: '#/components/schemas/UpdatePasswordRequest'
       tags:
         - 사용자
+  '/v1/users/{userId}':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: 사용자 정보 조회
+      tags: []
+      responses:
+        '200':
+          description: 조회 성공한 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: 액세스 토큰이 없거나 만료된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '403':
+          description: 정보 조회 권한이 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 사용자가 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      operationId: get-v1-users-userId
+      description: 사용자 정보 조회할 때 사용합니다
+      security:
+        - Authorization: []
 components:
   schemas:
     SignInRequest:
@@ -931,6 +994,42 @@ components:
         - password
     SignUpRequest:
       title: SignUpRequest
+      type: object
+      properties:
+        email:
+          type: string
+          description: 이메일
+        name:
+          type: string
+          description: 이름
+        major:
+          type: string
+          description: 전공
+        studentId:
+          type: string
+          description: 학번
+        password:
+          type: string
+          description: 비밀번호
+        birthday:
+          type: string
+          description: 생년월일
+        academicStatus:
+          type: string
+          description: 학적상태
+          enum:
+            - TAKE_OFF
+            - ATTENDING
+      required:
+        - email
+        - name
+        - major
+        - studentId
+        - password
+        - birthday
+        - academicStatus
+    User:
+      title: User
       type: object
       properties:
         email:
