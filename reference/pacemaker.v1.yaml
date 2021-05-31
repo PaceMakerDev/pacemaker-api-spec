@@ -1045,9 +1045,6 @@ components:
         studentId:
           type: string
           description: 학번
-        password:
-          type: string
-          description: 비밀번호
         birthday:
           type: string
           description: 생년월일
@@ -1062,7 +1059,6 @@ components:
         - name
         - major
         - studentId
-        - password
         - birthday
         - academicStatus
     LoginResponse:
