@@ -1104,10 +1104,10 @@ components:
         title:
           type: string
           description: 제목
-        description:
+        goal:
           type: string
           description: 설명
-        countParticipant:
+        capacity:
           type: integer
           description: 인원
         ranking:
@@ -1142,8 +1142,8 @@ components:
       required:
         - id
         - title
-        - description
-        - countParticipant
+        - goal
+        - capacity
         - ranking
         - tag
     QuestionOverview:
@@ -1186,15 +1186,13 @@ components:
         title:
           type: string
           description: 제목
-        description:
-          type: string
-          description: 설명
-        tag:
+        capacity:
+          type: integer
+          description: 최대인원
+        category:
           type: string
           description: |-
-            태그
-
-            LANGUAGE 외국어
+            스터디 종류 LANGUAGE 어학
 
             IT IT/컴퓨터
 
@@ -1215,10 +1213,22 @@ components:
             - ENTRANCE_EXAM
             - EMPLOYMENT
             - OTHER
+        goal:
+          type: string
+          description: 스터디 목표
+        rule:
+          type: string
+          description: 스터디 규칙
+        hashtag:
+          type: string
+          description: 해시테그
       required:
         - title
-        - description
-        - tag
+        - capacity
+        - category
+        - goal
+        - rule
+        - hashtag
     CreateQuestionRequest:
       title: CreateQuestionRequest
       type: object
