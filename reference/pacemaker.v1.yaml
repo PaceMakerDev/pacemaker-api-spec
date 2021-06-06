@@ -1116,7 +1116,7 @@ components:
         ranking:
           type: integer
           description: 랭킹
-        tag:
+        category:
           type: string
           description: |-
             태그
@@ -1142,13 +1142,19 @@ components:
             - ENTRANCE_EXAM
             - EMPLOYMENT
             - OTHER
+        hashTags:
+          type: array
+          description: 해시태그 목록
+          items:
+            type: string
       required:
         - id
         - title
         - goal
         - capacity
         - ranking
-        - tag
+        - category
+        - hashTags
     QuestionOverview:
       title: QuestionOverview
       type: object
