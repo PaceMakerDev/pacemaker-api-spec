@@ -162,7 +162,7 @@ paths:
               - EMPLOYMENT
               - OTHER
           in: query
-          name: tag
+          name: category
           description: |-
             태그
 
@@ -181,16 +181,19 @@ paths:
             OTHER 기타
         - schema:
             type: integer
-            default: 0
           in: query
           name: page
           description: 페이지 번호
         - schema:
             type: integer
-            default: 6
           in: query
           name: size
           description: 불러올 스터디 개수
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: '제목, 해시태그로 검색합니다'
       security:
         - Authorization: []
       description: ' 스터디룸 찾기 페이지에서 사용'
