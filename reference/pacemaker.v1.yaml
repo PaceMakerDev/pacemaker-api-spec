@@ -1231,6 +1231,11 @@ components:
         hashtag:
           type: string
           description: 해시테그
+        plans:
+          type: array
+          description: 스터디 일정
+          items:
+            $ref: '#/components/schemas/StudyPlan'
       required:
         - title
         - capacity
@@ -1238,6 +1243,7 @@ components:
         - goal
         - rule
         - hashtag
+        - plans
     CreateQuestionRequest:
       title: CreateQuestionRequest
       type: object
@@ -1395,6 +1401,31 @@ components:
           description: 새 비밀번호
       required:
         - newPassword
+    StudyPlan:
+      title: StudyPlan
+      type: object
+      properties:
+        day:
+          type: string
+          description: 요일
+          enum:
+            - MON
+            - TUE
+            - WED
+            - THU
+            - FRI
+            - SAT
+            - SUN
+        startTime:
+          type: string
+          description: 시작시간
+        endTime:
+          type: string
+          description: 종료시간
+      required:
+        - day
+        - startTime
+        - endTime
   responses: {}
   securitySchemes:
     Authorization:
