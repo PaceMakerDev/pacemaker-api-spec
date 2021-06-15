@@ -1228,9 +1228,14 @@ components:
         rule:
           type: string
           description: 스터디 규칙
-        hashtag:
+        hashtags:
           type: string
-          description: 해시테그
+          description: |-
+            해시태그
+
+            아래와 같이 여러 해시태그를 문자열로 보내주시면 됩니다
+
+            `#태그1 #태그2#태그3 #태그4#태그5#태그6`
         notificationSchedules:
           type: array
           description: 스터디 일정
@@ -1242,7 +1247,7 @@ components:
         - category
         - goal
         - rule
-        - hashtag
+        - hashtags
         - notificationSchedules
     CreateQuestionRequest:
       title: CreateQuestionRequest
