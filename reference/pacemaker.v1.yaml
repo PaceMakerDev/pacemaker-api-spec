@@ -1147,6 +1147,10 @@ components:
           description: 해시태그 목록
           items:
             type: string
+        notificationSchedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudyNotificationSchedule'
       required:
         - id
         - title
@@ -1155,6 +1159,7 @@ components:
         - ranking
         - category
         - hashTags
+        - notificationSchedules
     QuestionOverview:
       title: QuestionOverview
       type: object
