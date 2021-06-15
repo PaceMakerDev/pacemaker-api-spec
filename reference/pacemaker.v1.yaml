@@ -1401,8 +1401,8 @@ components:
           description: 새 비밀번호
       required:
         - newPassword
-    StudyPlan:
-      title: StudyPlan
+    StudyNotificationSchedule:
+      title: StudyNotificationSchedule
       type: object
       properties:
         day:
@@ -1416,16 +1416,13 @@ components:
             - FRI
             - SAT
             - SUN
-        startTime:
+        at:
           type: string
           description: 시작시간
-        endTime:
-          type: string
-          description: 종료시간
+          format: time
       required:
         - day
-        - startTime
-        - endTime
+        - at
   responses: {}
   securitySchemes:
     Authorization:
