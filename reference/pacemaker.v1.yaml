@@ -1235,7 +1235,7 @@ components:
           type: array
           description: 스터디 일정
           items:
-            $ref: '#/components/schemas/StudyPlan'
+            $ref: '#/components/schemas/StudyNotificationSchedule'
       required:
         - title
         - capacity
