@@ -991,7 +991,7 @@ paths:
       summary: 스터디 참여 신청하기
       operationId: post-v1-studies-studyId-requests
       responses:
-        '200':
+        '201':
           description: 참여신청 성공
           content:
             application/json:
@@ -1002,7 +1002,7 @@ paths:
                     type: boolean
                     description: api 호출 성공 여부
                   data:
-                    type: string
+                    $ref: '#/components/schemas/StudyParticipateRequest'
         '401':
           description: 액세스 토큰에 문제가 있는 경우
           content:
@@ -1497,6 +1497,36 @@ components:
       required:
         - day
         - at
+    StudyParticipateRequest:
+      title: StudyParticipateRequest
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 신청자 id
+        studyId:
+          type: string
+          description: 스터디 id
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACCEPTED
+            - REJECTED
+          description: |-
+            신청 상태
+
+            대기: PENDING
+            수락: ACCEPTED
+            거절: REJECTEd
+        createdAt:
+          type: string
+          description: 신청일자
+      required:
+        - userId
+        - studyId
+        - status
+        - createdAt
   responses: {}
   securitySchemes:
     Authorization:
