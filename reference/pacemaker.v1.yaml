@@ -980,6 +980,70 @@ paths:
       description: 사용자 정보 조회할 때 사용합니다
       security:
         - Authorization: []
+  '/v1/studies/{studyId}/participate-requests':
+    parameters:
+      - schema:
+          type: string
+        name: studyId
+        in: path
+        required: true
+    post:
+      summary: 스터디 참여 신청하기
+      operationId: post-v1-studies-studyId-requests
+      responses:
+        '200':
+          description: 참여신청 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '401':
+          description: 액세스 토큰에 문제가 있는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 스터디가 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '409':
+          description: 이미 참여하고 있는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      description: 스터디 참여신청하기
+      security:
+        - Authorization: []
+      tags:
+        - 스터디
 components:
   schemas:
     SignInRequest:
