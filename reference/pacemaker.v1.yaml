@@ -1081,6 +1081,11 @@ paths:
       description: 이메일 코드 인증하기
       tags:
         - 인증
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailCodeRequest'
     parameters: []
 components:
   schemas:
@@ -1579,8 +1584,11 @@ components:
       properties:
         code:
           type: string
+        email:
+          type: string
       required:
         - code
+        - email
   responses: {}
   securitySchemes:
     Authorization:
