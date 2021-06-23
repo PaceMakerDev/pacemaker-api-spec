@@ -1057,6 +1057,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SendEmailCodeRequest'
+      tags:
+        - 인증
   /v1/auth/email/verify-code:
     post:
       summary: 이메일 코드 인증하기
@@ -1077,6 +1079,8 @@ paths:
                   data:
                     type: string
       description: 이메일 코드 인증하기
+      tags:
+        - 인증
     parameters: []
 components:
   schemas:
