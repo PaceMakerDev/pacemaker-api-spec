@@ -1057,6 +1057,27 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SendEmailCodeRequest'
+  /v1/auth/email/verify-code:
+    post:
+      summary: 이메일 코드 인증하기
+      operationId: post-v1-auth-email-verify
+      responses:
+        '204':
+          description: 성공한 경우
+        '404':
+          description: 없는 코드인 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      description: 이메일 코드 인증하기
+    parameters: []
 components:
   schemas:
     SignInRequest:
@@ -1548,6 +1569,14 @@ components:
           type: string
       required:
         - email
+    VerifyEmailCodeRequest:
+      title: VerifyEmailCodeRequest
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+        - code
   responses: {}
   securitySchemes:
     Authorization:
