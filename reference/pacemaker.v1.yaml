@@ -1044,6 +1044,19 @@ paths:
         - Authorization: []
       tags:
         - 스터디
+  /v1/auth/email/send-code:
+    post:
+      summary: 이메일 코드 전송
+      operationId: post-v1-auth-email-send-code
+      responses:
+        '204':
+          description: 전송 성공한 경우
+      description: 이메일 코드 전송
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailCodeRequest'
 components:
   schemas:
     SignInRequest:
@@ -1527,6 +1540,14 @@ components:
         - studyId
         - status
         - createdAt
+    SendEmailCodeRequest:
+      title: SendEmailCodeRequest
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+        - email
   responses: {}
   securitySchemes:
     Authorization:
