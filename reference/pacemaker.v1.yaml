@@ -980,6 +980,72 @@ paths:
       description: 사용자 정보 조회할 때 사용합니다
       security:
         - Authorization: []
+    put:
+      summary: 사용자 정보 수정
+      operationId: put-v1-users-userId
+      responses:
+        '200':
+          description: 정보 수정 성공한 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: request body 형식이 틀린 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '403':
+          description: 권한이 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 사용자가 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      description: 사용자 정보 수정
+      tags:
+        - 사용자
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      security:
+        - Authorization: []
   '/v1/studies/{studyId}/participate-requests':
     parameters:
       - schema:
@@ -1589,6 +1655,16 @@ components:
       required:
         - code
         - email
+    UpdateUserRequest:
+      title: UpdateUserRequest
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        originalPassword:
+          type: string
   responses: {}
   securitySchemes:
     Authorization:
