@@ -1661,7 +1661,7 @@ components:
       properties:
         email:
           type: string
-        password:
+        newPassword:
           type: string
         originalPassword:
           type: string
