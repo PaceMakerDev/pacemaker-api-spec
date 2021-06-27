@@ -845,7 +845,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/FindPasswordRequest'
-  '/v1/user/{userId}/password':
+  '/v1/user/{userId}/password/reset':
     parameters:
       - schema:
           type: string
@@ -853,7 +853,7 @@ paths:
         in: path
         required: true
     patch:
-      summary: 비밀번호 변경
+      summary: 비밀번호 초기화
       operationId: patch-v1-user-userId-password
       responses:
         '204':
