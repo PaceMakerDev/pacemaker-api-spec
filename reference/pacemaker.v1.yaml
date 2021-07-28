@@ -1719,6 +1719,9 @@ components:
             - ENTRANCE_EXAM
             - EMPLOYMENT
             - OTHER
+        isLeader:
+          type: boolean
+          description: 팀장 여부
       required:
         - id
         - title
@@ -1726,6 +1729,7 @@ components:
         - userRankingInStudy
         - studyTimeInSecond
         - tag
+        - isLeader
     BarGraphData:
       title: BarGraphData
       type: object
