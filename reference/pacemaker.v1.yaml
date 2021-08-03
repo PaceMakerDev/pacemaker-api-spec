@@ -1369,6 +1369,84 @@ paths:
                   format: binary
               required:
                 - file
+  /v1/study-attendance:
+    post:
+      summary: '[스터디 출석] 출석 이미지 업로드'
+      operationId: post-v1-study-attendance
+      responses:
+        '201':
+          description: 성공한 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    $ref: '#/components/schemas/CreateStudyAttendanceResponse'
+        '400':
+          description: request body가 잘못된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '401':
+          description: 액세스 토큰 값이 잘못된 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '403':
+          description: 권한이 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+        '404':
+          description: 스터디가 없는 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: api 호출 성공 여부
+                  data:
+                    type: string
+      tags:
+        - 스터디 출석
+      description: 스터디 출석 이미지를 업로드합니다
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStudyAttendanceRequest'
+        description: |-
+          스터디 출석 할 때 사용합니다
+          request body에 있는 fileId를 얻기 위해 `파일 업로드 API`를 먼저 호출해야 합니다
 components:
   schemas:
     SignInRequest:
@@ -1912,6 +1990,37 @@ components:
         - id
         - url
         - originalName
+    CreateStudyAttendanceRequest:
+      title: CreateStudyAttendanceRequest
+      type: object
+      properties:
+        fileId:
+          type: string
+          format: binary
+          description: 파일 id
+        studyId:
+          type: integer
+          description: 스터디 id
+      required:
+        - fileId
+        - studyId
+    CreateStudyAttendanceResponse:
+      title: CreateStudyAttendanceResponse
+      type: object
+      properties:
+        attendance:
+          type: string
+          enum:
+            - PRESENT
+            - LATE
+            - ABSENT
+          description: 출결 상황
+        createdAt:
+          type: string
+          description: 출석 시간
+      required:
+        - attendance
+        - createdAt
   responses: {}
   securitySchemes:
     Authorization:
