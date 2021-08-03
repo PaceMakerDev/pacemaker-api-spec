@@ -226,7 +226,7 @@ paths:
                     description: api 호출 성공 여부
                   data:
                     type: string
-      description: 스터디 검색에서 스터디 목록 조회할 때 사용합니다
+      description: 스터디를 생성할 때 사용합니다
       security:
         - Authorization: []
       requestBody:
