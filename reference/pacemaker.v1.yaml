@@ -1771,7 +1771,7 @@ components:
         studyTimeInSecond:
           type: integer
           description: 사용자가 공부한 시간 (초단위)
-        tag:
+        category:
           type: string
           description: |-
             태그
@@ -1806,7 +1806,7 @@ components:
         - studyRanking
         - userRankingInStudy
         - studyTimeInSecond
-        - tag
+        - category
         - isLeader
     BarGraphData:
       title: BarGraphData
