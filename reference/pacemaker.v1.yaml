@@ -1498,7 +1498,8 @@ paths:
         required: true
     get:
       summary: 유저 랭킹 정보
-      tags: []
+      tags:
+        - 스터디
       responses:
         '200':
           description: OK
