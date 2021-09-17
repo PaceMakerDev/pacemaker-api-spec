@@ -1447,6 +1447,89 @@ paths:
         description: |-
           스터디 출석 할 때 사용합니다
           request body에 있는 fileId를 얻기 위해 `파일 업로드 API`를 먼저 호출해야 합니다
+  '/studies/{studyId}':
+    parameters:
+      - schema:
+          type: string
+        name: studyId
+        in: path
+        required: true
+    get:
+      summary: 스터디 정보
+      tags:
+        - 스터디
+      responses:
+        '200':
+          description: 성공한 경우
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        description: 제목
+                      rank:
+                        type: integer
+                        description: 랭크
+                      notice:
+                        type: string
+                        description: 공지
+                      time:
+                        type: integer
+                        description: '전체 시간 '
+                    required:
+                      - title
+                      - rank
+                      - notice
+                      - time
+                  success:
+                    type: boolean
+      operationId: get-studies-studyId
+  '/studies/{studyId}/user-rankings':
+    parameters:
+      - schema:
+          type: string
+        name: studyId
+        in: path
+        required: true
+    get:
+      summary: 유저 랭킹 정보
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 유저 id
+                        name:
+                          type: string
+                          description: 유저 이름
+                        time:
+                          type: integer
+                          description: 시간
+                      required:
+                        - id
+                        - name
+                        - time
+                  success:
+                    type: boolean
+                required:
+                  - data
+      operationId: get-studies-studyId-user-rankings
 components:
   schemas:
     SignInRequest:
