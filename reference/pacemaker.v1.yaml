@@ -1481,11 +1481,19 @@ paths:
                       time:
                         type: integer
                         description: '전체 시간 '
+                      attendance:
+                        type: string
+                        description: 출석상태
+                        enum:
+                          - PRESENT
+                          - LATE
+                          - ABSENT
                     required:
                       - title
                       - rank
                       - notice
                       - time
+                      - attendance
                   success:
                     type: boolean
       operationId: get-studies-studyId
