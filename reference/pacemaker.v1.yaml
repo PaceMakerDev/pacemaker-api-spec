@@ -1539,6 +1539,84 @@ paths:
                 required:
                   - data
       operationId: get-studies-studyId-user-rankings
+  '/v1/studies/:studyId/study-logs':
+    post:
+      summary: 스터디 기록
+      operationId: 'post-v1-studies-:studyId-study-logs'
+      responses:
+        '200':
+          description: 스터디 기록 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                required:
+                  - success
+                  - data
+      tags:
+        - 공부 기록
+      description: ''
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                time:
+                  type: number
+  '/v1/studies/:studyId/notifications':
+    post:
+      summary: 스터디 공지 생성
+      operationId: 'post-v1-studies-:studyId-notifications'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - title
+                      - content
+                    properties:
+                      id:
+                        type: number
+                      title:
+                        type: string
+                      content:
+                        type: string
+                required:
+                  - success
+                  - data
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+              required:
+                - title
+                - content
+        description: ''
 components:
   schemas:
     SignInRequest:
