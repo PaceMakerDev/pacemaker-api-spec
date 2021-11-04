@@ -1617,6 +1617,33 @@ paths:
                 - title
                 - content
         description: ''
+  /v1/studies/rank:
+    get:
+      summary: 스터디 랭크 10
+      tags:
+        - 스터디
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rank:
+                    type: string
+                  title:
+                    type: string
+                  time:
+                    type: number
+                required:
+                  - rank
+                  - title
+                  - time
+      operationId: get-v1-studies-rank
+      description: ''
+      security:
+        - Authorization: []
 components:
   schemas:
     SignInRequest:
